@@ -1,6 +1,6 @@
 # Knowledge Network Build Notes
 
-#### Requirements
+### Requirements
 
 0a. need 4cpu, 16GB RAM machine, recommend 2TB disk
 0b. No Mesos/Zookeeper/Chronos/Marathon Running
@@ -17,7 +17,7 @@ docker-compose --version
 
 
 
-#### Setup Pipeline
+### Setup Pipeline
 
 1. Make clean directory:
 
@@ -34,7 +34,7 @@ git clone https://github.com/cblatti3/KnowEnG_KnowNet.git
 cd KnowEnG_KnowNet
 ```
 
-#### Run Pipeline
+### Run Pipeline
 
 1. Turn on Mesos frameworks, databases, fetch maps, fetch and import data, export as networks:
 
@@ -50,7 +50,7 @@ docker run -it --rm --name=kn_build --net=host \
 ```
 
 
-#### Useful Commands
+### Useful Commands
 
 - get mesos tasks
 
@@ -107,7 +107,7 @@ done;
 ```
 
 
-#### Reset to job_status.py
+### Reset to job_status.py
 
 1. Clean chronos:
 
