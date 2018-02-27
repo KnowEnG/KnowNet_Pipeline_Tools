@@ -42,7 +42,7 @@ cd KnowEnG_KnowNet
 make destroy && \
 make start && \
 docker run -it --rm --name=kn_build --net=host \
-  -v ${PWD}/../:${PWD}/../ cblatti3/kn_builder \
+  -v ${PWD}/../:${PWD}/../ knoweng/kn_builder \
     sh -c "cd ${PWD}/ && \
     wget --tries 100 --retry-connrefused -O/dev/null \
       http://localhost:8080/ui/ http://localhost:8888/ http://localhost:5050/ && \
