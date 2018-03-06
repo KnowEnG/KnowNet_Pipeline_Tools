@@ -30,8 +30,8 @@ cd kn_build$TAG
 2. Clone the KnowEnG git repo:
 
 ```
-git clone https://github.com/cblatti3/KnowEnG_KnowNet.git
-cd KnowEnG_KnowNet
+git clone https://github.com/KnowEnG/KnowNet_Pipeline_Tools.git
+cd KnowNet_Pipeline_Tools
 ```
 
 ### Run Pipeline
@@ -46,11 +46,11 @@ docker run -it --rm --name=kn_build --net=host \
     sh -c "cd ${PWD}/ && \
     wget --tries 100 --retry-connrefused -O/dev/null \
       http://localhost:8080/ui/ http://localhost:8888/ http://localhost:5050/ && \
-    python3 /kn_builder/code/job_status.py -s pfam_prot kegg pathcom enrichr blast -p drosophila_melanogaster homo_sapiens "
+    python3 /kn_builder/code/build_status.py -es homo_sapiens "
 ```
 
 
-### Useful Commands
+### Useful Troubleshooting Commands
 
 - get mesos tasks
 
