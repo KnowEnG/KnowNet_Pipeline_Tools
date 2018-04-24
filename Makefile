@@ -1,6 +1,7 @@
 DOCKER_IP ?= 127.0.0.1
 export DOCKER_IP
 
+.PHONY: knownet
 knownet: start
 	docker run -it --rm --name=kn_build --net=host \
 	  -v ${PWD}/../:${PWD}/../ knoweng/kn_builder \
@@ -8,6 +9,34 @@ knownet: start
 	    wget --tries 100 --retry-connrefused -O/dev/null \
 	      http://localhost:8080/ui/ http://localhost:8888/ http://localhost:5050/ && \
 	    python3 /kn_builder/code/build_status.py -es homo_sapiens "
+
+.PHONY: clean_chronos
+clean_chronos:
+	#TODO: Use a better temporary file? 
+	curl -L -X GET 127.0.0.1:8888/scheduler/jobs | sed 's#,#\n#g' | sed 's#\[##g' \
+	  | grep '"name"' | sed 's#{"name":"##g' | sed 's#"##g' > /tmp/t.txt
+	for JOB in `cat /tmp/t.txt`; do \
+	  CMD="curl -L -X DELETE 127.0.0.1:8888/scheduler/job/$$JOB";\
+	  echo "$$CMD"; \
+	  eval "$$CMD"; \
+	done;
+
+.PHONY: clean_marathon
+clean_marathon:
+	curl -X DELETE 127.0.0.1:8080/v2/apps/kn-mysql
+	curl -X DELETE 127.0.0.1:8080/v2/apps/kn-redis
+
+.PHONY: clean_files
+clean_files:
+	rm -rf kn-logs/ kn-mysql/ kn-redis/ kn-rawdata/
+
+.PHONY: export_mysql
+export_mysql:
+	mysqldump -h localhost -u root -pKnowEnG KnowNet | gzip > kn-final/mysql.gz
+
+.PHONY: export_redis
+export_redis:
+	redis-cli -h localhost -a KnowEnG SAVE && gzip -c kn-redis/dump.rdb > kn-final/redis.gz
 
 .PHONY: run
 run:
