@@ -1,6 +1,9 @@
 DOCKER_IP ?= 127.0.0.1
 export DOCKER_IP
 
+SPECIES ?= 'homo_sapiens'
+SOURCES ?= ''
+
 .PHONY: knownet
 knownet: start
 	docker run -it --rm --name=kn_build --net=host \
@@ -8,7 +11,7 @@ knownet: start
 	    sh -c "cd ${PWD}/ && \
 	    wget --tries 100 --retry-connrefused -O/dev/null \
 	      http://localhost:8080/ui/ http://localhost:8888/ http://localhost:5050/ && \
-	    python3 /kn_builder/code/build_status.py -es homo_sapiens "
+	    python3 /kn_builder/code/build_status.py -es ${SPECIES} -srcs ${SOURCES}"
 
 .PHONY: clean_chronos
 clean_chronos:
