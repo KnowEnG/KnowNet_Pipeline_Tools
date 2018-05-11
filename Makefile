@@ -31,7 +31,7 @@ clean_marathon:
 
 .PHONY: clean_files
 clean_files:
-	rm -rf kn-logs/ kn-mysql/ kn-redis/ kn-rawdata/
+	rm -rf kn-logs/* kn-mysql/* kn-redis/* kn-rawdata/*
 
 .PHONY: export_mysql
 export_mysql:
