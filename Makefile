@@ -3,6 +3,7 @@ export DOCKER_IP
 
 SPECIES ?= 'homo_sapiens'
 SOURCES ?= ''
+PWD ?= $(shell pwd)
 
 .PHONY: knownet
 knownet: start
