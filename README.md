@@ -3,7 +3,7 @@
 ## Table of Contents
 1. [Requirements](#requirements)
 2. [Run Pipeline](#run-pipeline)
-    1. [Example commands for species/sources](#example-commands-for-species/sources)
+    1. [Example commands for species/sources](#example-commands-for-speciessources)
     2. [What the output means](#what-the-output-means)
 3. [Output files](#output-files)
 4. [Cleanup](#cleanup)
@@ -45,7 +45,7 @@ make knownet SPECIES=homo_sapiens,,mus_musculus SOURCES=kegg,,stringdb
 
 #### What the output means
 
-The make command will produce a large amount of output.  First it will show the status of starting up mesos and chronos, and then starting up the databases.  After it finishes with that, it will start the processing pipeline, and periodically print the status of the pipeline.
+The make command will produce a large amount of output.  First it will show the status of starting up mesos and chronos, and then starting up the databases.  After it finishes with that, it will start the processing pipeline, and periodically print the status of the pipeline.  It should return when either an error occurs, or the pipeline finishes running.
 
 ### Output files
 
