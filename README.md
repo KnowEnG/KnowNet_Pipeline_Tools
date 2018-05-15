@@ -49,6 +49,8 @@ The make command will produce a large amount of output.  First it will show the 
 
 It will also create some directories:
 
+|Directory	|Contents|
+|--------	|--------|
 |kn-redis	|Stores the redis database.|
 |kn-rawdata	|Stores the downloaded and processed data.|
 |kn-mysql	|Stores the MySQL database.|
