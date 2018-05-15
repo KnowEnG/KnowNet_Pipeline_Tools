@@ -14,6 +14,9 @@ knownet: start
 	      http://localhost:8080/ui/ http://localhost:8888/ http://localhost:5050/ && \
 	    python3 /kn_builder/code/build_status.py -es ${SPECIES} -srcs ${SOURCES}"
 
+.PHONY: clean
+clean: clean_chronos clean_marathon clean_files
+
 .PHONY: clean_chronos
 clean_chronos:
 	#TODO: Use a better temporary file? 

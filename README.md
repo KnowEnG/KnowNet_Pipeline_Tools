@@ -3,8 +3,8 @@
 ## Table of Contents
 1. Requirements
 2. Run Pipeline
-2a. Example commands for species/sources
-2b. What the output means
+2.a. Example commands for species/sources
+2.b. What the output means
 3. Output files
 4. Cleanup
 5. Troubleshooting
@@ -12,8 +12,8 @@
 
 ### Requirements
 
-0a. Need 4cpu, 16GB RAM machine, recommend 2TB disk
-0b. No Mesos/Zookeeper/Chronos/Marathon Running
+0.a. Need 4cpu, 16GB RAM machine, recommend 2TB disk
+0.b. No Mesos/Zookeeper/Chronos/Marathon Running
 1. make
 2. Docker:
 3. Docker Compose <https://docs.docker.com/compose/install/#install-compose>:
@@ -35,7 +35,7 @@ Then, running the pipeline is as simple as running `make`.
 make knownet
 ```
 
-This will start up our mesos environment, and then run the pipeline for all officially supported species (TODO: add list) and sources.
+This will start up our mesos environment, and then run the pipeline for all officially supported species and sources. (TODO: add lists)
 
 To specify a list of species or sources, you can specify them as `,,`-separated variables, like so:
 
@@ -47,7 +47,9 @@ make knownet SPECIES=homo_sapiens,,mus_musculus SOURCES=kegg,,stringdb
 
 The make command will produce a large amount of output.  First it will show the status of starting up mesos and chronos, and then starting up the databases.  After it finishes with that, it will start the processing pipeline, and periodically print the status of the pipeline.
 
-It will also create some directories:
+### Output files
+
+Running the pipeline will create several directories:
 
 |Directory	|Contents|
 |--------	|--------|
@@ -57,8 +59,18 @@ It will also create some directories:
 |kn-logs	|Stores the log files.|
 |kn-final	|Stores the final processed output files.|
 
+Information about the output and intermediate file and database formats can be found [here]()
 
-### Useful Troubleshooting Commands
+### Cleanup
+
+To clean up the files (except `kn-final`), as well as chronos, marathon, and mesos, run:
+
+```
+make clean
+make destroy
+```
+
+### Troubleshooting
 
 - get mesos tasks
 
@@ -113,45 +125,3 @@ for i in mysqld redis-server check_utilities fetch_utilities table_utilities con
   docker ps -a --no-trunc | grep $i | rev | cut -d' ' -f 1 | rev | awk -v LABEL="$i" '{print $1"\t"LABEL}'
 done;
 ```
-
-
-### Reset to job_status.py
-
-1. Clean chronos:
-
-```
-curl -L -X GET 127.0.0.1:8888/scheduler/jobs | sed 's#,#\n#g' | sed 's#\[##g' \
-  | grep '"name"' | sed 's#{"name":"##g' | sed 's#"##g' > /tmp/t.txt
-for JOB in `cat /tmp/t.txt`; do
-  CMD="curl -L -X DELETE 127.0.0.1:8888/scheduler/job/$JOB";
-  echo "$CMD";
-  eval "$CMD";
-done;
-```
-
-2. Clean marathon:
-
-```
-curl -X DELETE 127.0.0.1:8080/v2/apps/mysql-[port]-[tag]
-curl -X DELETE 127.0.0.1:8080/v2/apps/redis-[port]-[tag]
-```
-
-3. Turn off mesos and frameworks
-
-```
-make destroy
-```
-
-4. Clean docker
-
-```
-docker ps -aq --no-trunc | xargs docker rm
-```
-
-5. Clean file system
-
-```
-rm -r ../*[tag]/
-```
-
-
