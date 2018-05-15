@@ -1,22 +1,22 @@
 # Knowledge Network Build Pipeline
 
 ## Table of Contents
-1. Requirements
-2. Run Pipeline
-2.a. Example commands for species/sources
-2.b. What the output means
-3. Output files
-4. Cleanup
-5. Troubleshooting
+1. [Requirements](#requirements)
+2. [Run Pipeline](#run-pipeline)
+    1. [Example commands for species/sources](#example-commands-for-species/sources)
+    2. [What the output means](#what-the-output-means)
+3. [Output files](#output-files)
+4. [Cleanup](#cleanup)
+5. [Troubleshooting](#troubleshooting)
 
 
 ### Requirements
 
-0.a. Need 4cpu, 16GB RAM machine, recommend 2TB disk
-0.b. No Mesos/Zookeeper/Chronos/Marathon Running
+0a. Need 4cpu, 16GB RAM machine, recommend 2TB disk
+0b. No Mesos/Zookeeper/Chronos/Marathon Running
 1. make
-2. Docker:
-3. Docker Compose <https://docs.docker.com/compose/install/#install-compose>:
+2. Docker
+3. Docker Compose: <https://docs.docker.com/compose/install/#install-compose>
 
 ### Run Pipeline
 
@@ -59,7 +59,7 @@ Running the pipeline will create several directories:
 |kn-logs	|Stores the log files.|
 |kn-final	|Stores the final processed output files.|
 
-Information about the output and intermediate file and database formats can be found [here]()
+Information about the output and intermediate file and database formats can be found [here](http://knowredis.knoweng.org/)
 
 ### Cleanup
 
