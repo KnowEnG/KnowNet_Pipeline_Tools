@@ -29,6 +29,8 @@ git clone https://github.com/KnowEnG/KnowNet_Pipeline_Tools
 cd KnowNet_Pipeline_Tools
 ```
 
+Note: Depending on your setup, some of the following commands may require root.  This is because docker by default does not allow nonroot processes to start jobs.  In addition, the jobs are run as root inside docker, so all the output and intermediate files will be created as root.
+
 Then, running the pipeline is as simple as running `make`.
 
 ```
@@ -45,7 +47,7 @@ make knownet SPECIES=homo_sapiens,,mus_musculus SOURCES=kegg,,stringdb
 
 #### What the output means
 
-The make command will produce a large amount of output.  First it will show the status of starting up mesos and chronos, and then starting up the databases.  After it finishes with that, it will start the processing pipeline, and periodically print the status of the pipeline.  It should return when either an error occurs, or the pipeline finishes running.
+The make command will produce a large amount of output.  First it will show the status of starting up mesos and chronos, and then starting up the databases.  After it finishes with that, it will start the processing pipeline, and periodically print the status of the pipeline.  It should return when either an error occurs or the pipeline finishes running.
 
 ### Output files
 
