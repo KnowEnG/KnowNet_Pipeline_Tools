@@ -1,53 +1,59 @@
-# Knowledge Network Build Notes
+# Knowledge Network Build Pipeline
+
+## Table of Contents
+1. Requirements
+2. Run Pipeline
+2a. Example commands for species/sources
+2b. What the output means
+3. Output files
+4. Cleanup
+5. Troubleshooting
+
 
 ### Requirements
 
-0a. need 4cpu, 16GB RAM machine, recommend 2TB disk
+0a. Need 4cpu, 16GB RAM machine, recommend 2TB disk
 0b. No Mesos/Zookeeper/Chronos/Marathon Running
 1. make
 2. Docker:
 3. Docker Compose <https://docs.docker.com/compose/install/#install-compose>:
 
-```
-curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` \
-  -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-docker-compose --version
-```
+### Run Pipeline
 
+#### Example commands for species/sources
 
-
-### Setup Pipeline
-
-1. Make clean directory:
+First, check out this repo:
 
 ```
-TAG="_"`date +'%y%m%d'`
-mkdir kn_build$TAG
-cd kn_build$TAG
-```
-
-2. Clone the KnowEnG git repo:
-
-```
-git clone https://github.com/KnowEnG/KnowNet_Pipeline_Tools.git
+git clone https://github.com/KnowEnG/KnowNet_Pipeline_Tools
 cd KnowNet_Pipeline_Tools
 ```
 
-### Run Pipeline
-
-1. Turn on Mesos frameworks, databases, fetch maps, fetch and import data, export as networks:
+Then, running the pipeline is as simple as running `make`.
 
 ```
-make destroy && \
-make start && \
-docker run -it --rm --name=kn_build --net=host \
-  -v ${PWD}/../:${PWD}/../ knoweng/kn_builder \
-    sh -c "cd ${PWD}/ && \
-    wget --tries 100 --retry-connrefused -O/dev/null \
-      http://localhost:8080/ui/ http://localhost:8888/ http://localhost:5050/ && \
-    python3 /kn_builder/code/build_status.py -es homo_sapiens "
+make knownet
 ```
+
+This will start up our mesos environment, and then run the pipeline for all officially supported species (TODO: add list) and sources.
+
+To specify a list of species or sources, you can specify them as `,,`-separated variables, like so:
+
+```
+make knownet SPECIES=homo_sapiens,,mus_musculus SOURCES=kegg,,stringdb
+```
+
+#### What the output means
+
+The make command will produce a large amount of output.  First it will show the status of starting up mesos and chronos, and then starting up the databases.  After it finishes with that, it will start the processing pipeline, and periodically print the status of the pipeline.
+
+It will also create some directories:
+
+|kn-redis	|Stores the redis database.|
+|kn-rawdata	|Stores the downloaded and processed data.|
+|kn-mysql	|Stores the MySQL database.|
+|kn-logs	|Stores the log files.|
+|kn-final	|Stores the final processed output files.|
 
 
 ### Useful Troubleshooting Commands
