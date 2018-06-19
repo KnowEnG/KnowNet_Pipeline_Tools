@@ -15,7 +15,7 @@ knownet: start
 	    python3 /kn_builder/code/build_status.py -es ${SPECIES} -srcs ${SOURCES}"
 
 .PHONY: clean
-clean: clean_chronos clean_marathon clean_files
+clean: clean_chronos clean_marathon clean_intermediate
 
 .PHONY: clean_chronos
 clean_chronos:
@@ -33,9 +33,17 @@ clean_marathon:
 	curl -X DELETE 127.0.0.1:8080/v2/apps/kn-mysql
 	curl -X DELETE 127.0.0.1:8080/v2/apps/kn-redis
 
-.PHONY: clean_files
-clean_files:
-	rm -rf kn-logs/* kn-mysql/* kn-redis/* kn-rawdata/*
+.PHONY: clean_intermediate
+clean_intermediate:
+	rm -rf kn-mysql/* kn-redis/* kn-rawdata/*
+
+.PHONY: clean_logs
+clean_logs:
+	rm -rf kn_logs/*
+
+.PHONY: clean_export
+clean_export:
+	rm -rf kn_final/*
 
 .PHONY: export_mysql
 export_mysql:
