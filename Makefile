@@ -39,11 +39,11 @@ clean_intermediate:
 
 .PHONY: clean_logs
 clean_logs:
-	rm -rf kn_logs/*
+	rm -rf kn-logs/*
 
 .PHONY: clean_export
 clean_export:
-	rm -rf kn_final/*
+	rm -rf kn-final/*
 
 .PHONY: export_mysql
 export_mysql:
