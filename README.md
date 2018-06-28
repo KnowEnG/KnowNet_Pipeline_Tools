@@ -65,7 +65,7 @@ Information about the output and intermediate file and database formats can be f
 
 ### Cleanup
 
-To clean up the files (except `kn-final`), as well as chronos, marathon, and mesos, run:
+To clean up the files (except `kn-logs` and `kn-final`), as well as chronos, marathon, and mesos, run:
 
 ```
 make clean

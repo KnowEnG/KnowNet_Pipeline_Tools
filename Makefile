@@ -17,6 +17,9 @@ knownet: start
 .PHONY: clean
 clean: clean_chronos clean_marathon clean_intermediate
 
+.PHONY: clean
+clean: clean_chronos clean_marathon clean_intermediate clean_logs clean_export
+
 .PHONY: clean_chronos
 clean_chronos:
 	#TODO: Use a better temporary file? 
