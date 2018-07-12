@@ -39,6 +39,8 @@ make knownet
 
 This will start up our mesos environment, and then run the pipeline for all officially supported species and sources. (TODO: add lists)
 
+##### Parameters
+
 To specify a list of species or sources, you can specify them as `,,`-separated variables, like so:
 
 ```
