@@ -53,13 +53,13 @@ The make command will produce a large amount of output.  First it will show the 
 
 Running the pipeline will create several directories:
 
-|Directory	|Contents|
-|--------	|--------|
-|kn-redis	|Stores the redis database.|
-|kn-rawdata	|Stores the downloaded and processed data.|
-|kn-mysql	|Stores the MySQL database.|
-|kn-logs	|Stores the log files.|
-|kn-final	|Stores the final processed output files.|
+|Contents                                   |Directory	|
+|--------                                   |--------	|
+|Stores the redis database.                 |kn-redis	|
+|Stores the downloaded and processed data.  |kn-rawdata	|
+|Stores the MySQL database.                 |kn-mysql	|
+|Stores the log files.                      |kn-logs	|
+|Stores the final processed output files.   |kn-final	|
 
 Information about the output and intermediate file and database formats can be found [here](http://knowredis.knoweng.org/)
 
